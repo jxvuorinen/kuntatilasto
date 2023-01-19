@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <style>
+    h1 {
+      font-size: 20pt;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 16pt;
+      margin: 0;
+    }
+
+    .mdl-layout {
+      margin-top: 15px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 90%;
+      max-width: 960px;
+    }
+
+    .mdl-textfield {
+      width: 100%;
+    }
+
+    .mdl-textfield__input {
+      width: 92%;
+      border-radius: 5px;
+      padding: 15px;
+      border: solid 1px lightgrey;
+      text-align: start;
+    }
+
+    .mdl-button {
+      border-radius: 5px;
+      height: 40px;
+      max-width: fit-content;
+      margin-bottom: 10px;
+    }
+
+    .material-icons {
+      color: gray;
+    }
+  </style>
+  <title>Oppimistehtävä 1</title>
+</head>
+
+<body>
+
+  <div class="mdl-layout">
+
+    <h1>Kuntien asukastilastoja</h1>
+
+    <form method="POST" action="/">
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" name="rajausteksti" placeholder="Etsi kunta hakusanalla">
+      </div>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit">
+        Etsi
+      </button>
+    </form>
+
+    <form method="GET" action="/">
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit">
+        Poista rajaus
+      </button>
+    </form>
+
+    <table class="mdl-data-table mdl-js-data-table">
+      <thead>
+        <tr>
+          <th class="mdl-data-table__cell--non-numeric">Kunta</th>
+          <th>Asukasmäärä yhteensä</th>
+          <th>Miesten asukasmäärä</th>
+          <th>Naisten asukasmäärä</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <% kunnat.forEach((kunta)=> { %>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">
+              <%= kunta.kunta %>
+            </td>
+            <td>
+              <%=kunta.asukkaatYhteensa.toLocaleString('fi') %>
+            </td>
+            <td>
+              <%=kunta.asukkaatMiehet.toLocaleString('fi') %>
+            </td>
+            <td>
+              <%=kunta.asukkaatNaiset.toLocaleString('fi') %>
+            </td>
+            <% }) %>
+          </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <h2>Tilastotietoa valituista kunnista</h2>
+      
+      <ul class="mdl-list">
+        <li class="mdl-list__item">
+          <span class="mdl-list__item-primary-content">
+            Kuntia tarkastelussa: <%= kuntia %>
+          </span>
+        </li>
+        <li class="mdl-list__item">
+          <span class="mdl-list__item-primary-content">
+            Kuntien asukasluvun keskiarvo: <%= asukkaidenKeskiarvo %>
+          </span>
+        </li>
+        <li class="mdl-list__item">
+          <span class="mdl-list__item-primary-content">
+            Naisten prosentuaalinen osuus koko väestöstä: <%= naistenOsuus %> %
+          </span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
